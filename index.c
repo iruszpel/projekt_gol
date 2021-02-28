@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "map.h"
+#include "image_io.h"
 /*
 void printTest(int **map, int r, int c)
 {
@@ -80,7 +81,9 @@ int main(int argc, char **argv)
 */
     for (int i = 0; i < iterations; i++)
     {
-        printTest(map->data, map->r, map->c);
+        char *filename[20];
+        sprintf (filename, "iter_%d.bmp", i);
+        saveToBmp(filename,map->data);
         map->data = updateMap(map->data, map->r, map->c);
     }
 }
