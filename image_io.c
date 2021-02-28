@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "libbmp.h"
+#include "image_io.h"
 
 void saveToBmp(char *file, int **map, int r, int c) {
 	int desiredWidth = 512;
@@ -9,7 +10,6 @@ void saveToBmp(char *file, int **map, int r, int c) {
 	bmp_img img;
 	bmp_img_init_df (&img, width, height);
 	
-	// Draw a checkerboard pattern:
 	for (size_t y = 0, x; y < height; y++)
 	{
 		for (x = 0; x < width; x++)
@@ -31,5 +31,4 @@ void saveToBmp(char *file, int **map, int r, int c) {
 	
 	bmp_img_write (&img, file);
 	bmp_img_free (&img);
-	return 0;
 }

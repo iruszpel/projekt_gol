@@ -65,11 +65,11 @@ int main(int argc, char **argv)
     
     for (int i = 0; i < iterations; i++)
     {
-        char *filename[20];
-        sprintf (filename, "mapa/iter_%d.bmp", i);
-        saveToBmp(filename,map->data);
-        //printTest(map->data, map->r, map->c);
+        char filename[20];
+        sprintf (filename, "mapa/iter_%d.bmp" ,i);
         saveMap(map, argv[2], i);
+        saveToBmp(filename,map->data, map->r, map->c);
+        
         map->data = updateMap(map->data, map->r, map->c);
     }
 }
