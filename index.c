@@ -18,9 +18,7 @@ void printTest(int **map, int r, int c)
         printf("; \n");
     }
     printf("]\n");
-}
-Do wyrzucenia później
-*/
+}*/
 int aliveNeighbours(int **map, int x, int y, int r, int c)
 {
     int a = 0;
@@ -28,11 +26,11 @@ int aliveNeighbours(int **map, int x, int y, int r, int c)
     {
         for (int j = x - 1; j < x + 2; j++)
         {
-            if (i >= 0 && i < r && y >= 0 && y < c && !(i == y && j == x)){
+            if (i >= 0 && i < r && y >= 0 && y < c && !(i == y && j == x))
+            {
                 if (map[i][j] == 1)
                     a++;
             }
-                
         }
     }
     return a;
@@ -61,29 +59,17 @@ int **updateMap(int **map, int r, int c)
 
 int main(int argc, char **argv)
 {
-    //int iterations = 3;
+
     int iterations = atoi(argv[1]);
     Map *map = readMap(argv[2]);
-    /*Map *map = malloc(sizeof *map);
-    map->c = 3;
-    map->r = 3;
-    map->data = allocateMap(map->r, map->c);
-
-    map->data[0][0] = 0;
-    map->data[0][1] = 1;
-    map->data[0][2] = 0;
-    map->data[1][0] = 1;
-    map->data[1][1] = 1;
-    map->data[1][2] = 1;
-    map->data[2][0] = 0;
-    map->data[2][1] = 0;
-    map->data[2][2] = 0;
-*/
+    
     for (int i = 0; i < iterations; i++)
     {
         char *filename[20];
-        sprintf (filename, "iter_%d.bmp", i);
+        sprintf (filename, "mapa/iter_%d.bmp", i);
         saveToBmp(filename,map->data);
+        //printTest(map->data, map->r, map->c);
+        saveMap(map, argv[2], i);
         map->data = updateMap(map->data, map->r, map->c);
     }
 }
