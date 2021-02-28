@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/stat.h>
+
 #include "map.h"
 
 int **allocateMap(int r, int c)
@@ -57,18 +57,13 @@ Map *readMap(char *file)
     return map;
 }
 
-void saveMap(Map *map, char *file, int iter)
+void saveMap(Map *map, char *path, int iter)
 {
-    char *folder = malloc(strlen(file) - 4);
-    strncpy(folder, file, strlen(file) - 4);
-    mkdir(folder, 0700);
+    char * new_path = malloc(sizeof path + 4);
+	strcpy(new_path, path);
+    strcat(new_path, ".txt");
 
-    int new_len = strlen(file) + 10;
-    char *filename = malloc(new_len);
-
-    snprintf(filename, new_len, "./%s/iter_%d.txt", folder, iter);
-
-    FILE *out = fopen(filename, "w+");
+    FILE *out = fopen(new_path, "w+");
     fprintf(out, "%d %d\n", map->r, map->c);
 
     for (int i = 0; i < map->r; i++)

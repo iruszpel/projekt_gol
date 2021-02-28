@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 #include "map.h"
 #include "image_io.h"
+#include <sys/stat.h>
 /*
 void printTest(int **map, int r, int c)
 {
@@ -62,14 +63,18 @@ int main(int argc, char **argv)
 
     int iterations = atoi(argv[1]);
     Map *map = readMap(argv[2]);
-    
+    char path[30];
+
+    char *folder = malloc(strlen(argv[2]) - 4);
+    strncpy(folder, argv[2], strlen(argv[2]) - 4);
+    mkdir(folder, 0700);
+
     for (int i = 0; i < iterations; i++)
     {
-        char filename[20];
-        sprintf (filename, "mapa/iter_%d.bmp" ,i);
-        saveMap(map, argv[2], i);
-        saveToBmp(filename,map->data, map->r, map->c);
-        
+        sprintf(path, "./%s/iter_%d", folder, i);
+        saveMap(map, path, i);
+        saveToBmp(path, map->data, map->r, map->c);
+
         map->data = updateMap(map->data, map->r, map->c);
     }
 }
