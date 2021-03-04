@@ -4,22 +4,7 @@
 #include "map.h"
 #include "image_io.h"
 #include <sys/stat.h>
-/*
-void printTest(int **map, int r, int c)
-{
-    int i, j;
-    printf("[ \n");
-    for (i = 0; i < r; i++)
-    {
-        printf("  ");
-        for (j = 0; j < c; j++)
-        {
-            printf("%d ", map[i][j]);
-        }
-        printf("; \n");
-    }
-    printf("]\n");
-}*/
+
 int aliveNeighbours(int **map, int x, int y, int r, int c)
 {
     int a = 0;
@@ -64,17 +49,23 @@ int main(int argc, char **argv)
     int iterations = atoi(argv[1]);
     Map *map = readMap(argv[2]);
     char path[30];
+    char pathGif[30];
 
     char *folder = malloc(strlen(argv[2]) - 4);
     strncpy(folder, argv[2], strlen(argv[2]) - 4);
     mkdir(folder, 0700);
 
+    sprintf(pathGif, "./%s/map.gif", folder);
+    initGif(pathGif, map->r, map->c);
     for (int i = 0; i < iterations; i++)
     {
         sprintf(path, "./%s/iter_%d", folder, i);
         saveMap(map, path, i);
         saveToBmp(path, map->data, map->r, map->c);
+        addFrameGif(map->data);
 
         map->data = updateMap(map->data, map->r, map->c);
     }
+
+    saveToGif();
 }

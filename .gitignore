@@ -54,3 +54,4 @@ dkms.conf
 #Other temp
 test.*
 temp.*
+*.gif

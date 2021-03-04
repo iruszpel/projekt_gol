@@ -1,6 +1,6 @@
+LIB_DIR=./lib
 a.out: index.o map.o image_io.o
-	$(CC) $^ libbmp.c
+	$(CC) $(LIB_DIR)/*.c $^ 
 
 map.o: map.h
-libbmp.o: libbmp.h
-image_io.o: image_io.h libbmp.o
+image_io.o: image_io.h libbmp.o gifenc.o
