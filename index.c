@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "map.h"
 #include "image_io.h"
 #include <sys/stat.h>
@@ -42,30 +43,74 @@ int **updateMap(int **map, int r, int c)
     freeMap(map, r);
     return newmap;
 }
-
+void syntax(char *f)
+{
+    printf("%s -<flags> \n", f);
+    printf("\t-f <filename> (*required)\n");
+    printf("\t-i <number> - number of iterations (*required)\n");
+    printf("\t-s <number> -  which iteration to save\n");
+    printf("\t-g - creates GIF animation\n");
+}
 int main(int argc, char **argv)
 {
-
-    int iterations = atoi(argv[1]);
-    Map *map = readMap(argv[2]);
+    int opt;
+    int iterations = 0;
+    int f_check = 0;
+    int gif = 0;
+    int its;
     char path[30];
     char pathGif[30];
+    Map *map;
+    char *folder;
 
-    char *folder = malloc(strlen(argv[2]) - 4);
-    strncpy(folder, argv[2], strlen(argv[2]) - 4);
-    mkdir(folder, 0700);
-
-    sprintf(pathGif, "./%s/map.gif", folder);
-    initGif(pathGif, map->r, map->c);
+    while ((opt = getopt(argc, argv, "f:i:s:g")) != -1)
+    {
+        switch (opt)
+        {
+        case 'f': //filename
+            f_check = 1;
+            map = readMap(optarg);
+            folder = malloc(strlen(optarg) - 4);
+            strncpy(folder, optarg, strlen(optarg) - 4);
+            mkdir(folder, 0700);
+            break;
+        case 'i': // how many iterations
+            iterations = atoi(optarg);
+            break;
+        case 's': // which iteration to save
+            its = atoi(optarg);
+            break;
+        case 'g': // creates GIF file
+            gif = 1;
+            break;
+        default:
+            fprintf(stderr, "%s: unknown option %c - ignored\n", argv[0], opt);
+            break;
+        }
+    }
+    if (iterations == 0 || f_check == 0)
+    {
+        syntax(argv[0]);
+        return -1;
+    }
+    if (gif == 1)
+    {
+        sprintf(pathGif, "./%s/%s.gif", folder, folder);
+        initGif(pathGif, map->r, map->c);
+    }
     for (int i = 0; i < iterations; i++)
     {
         sprintf(path, "./%s/iter_%d", folder, i);
-        saveMap(map, path, i);
         saveToBmp(path, map->data, map->r, map->c);
-        addFrameGif(map->data);
+
+        if (i == its)
+            saveMap(map, path, i);
+
+        if (gif == 1)
+            addFrameGif(map->data);
 
         map->data = updateMap(map->data, map->r, map->c);
     }
-
-    saveToGif();
+    if (gif == 1)
+        saveToGif();
 }
