@@ -90,37 +90,3 @@ void saveToGif()
 {
 	ge_close_gif(gif);
 }
-/*
-
-	/* draw some frames 
-	for (int frames = 0; i < 4 * 6 / 3; i++)
-	{
-		for (size_t y = 0, x; y < height; y++)
-		{
-			for (x = 0; x < width; x++)
-			{
-				if ((y % boxSize == 0 || x % boxSize == 0))
-				{
-					gif->frame[y * width + x] = 0;
-				}
-				else if ((map[y / boxSize][x / boxSize] == 1) && !(y % boxSize == 0 || x % boxSize == 0))
-				{
-					gif->frame[y * width + x] = 1;
-				}
-				else
-				{
-					gif->frame[y * width + x] = 2;
-				}
-			}
-		}
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				gif->frame[y * width + x] = (i * 3 + j) / 6 % 4;
-			}
-		}
-
-		ge_add_frame(gif, 25);
-	}
-*/
