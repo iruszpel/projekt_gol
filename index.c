@@ -36,7 +36,7 @@ int main(int argc, char **argv)
             file_check = 1;
             map = readMap(optarg);
 
-            folder = malloc(strlen(optarg) - 4);
+            folder = calloc(strlen(optarg) - 3, sizeof(char));
             strncpy(folder, optarg, strlen(optarg) - 4);
             mkdir(folder, 0700);
             break;
