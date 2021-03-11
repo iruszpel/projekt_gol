@@ -42,7 +42,10 @@ void saveToBmp(char *path, int **map, int r, int c)
 	strcat(new_path, ".bmp");
 	
 	bmp_img_write(&img, new_path);
+
 	bmp_img_free(&img);
+	free(new_path);
+
 }
 
 void initGif(char *path, int r, int c)
@@ -89,4 +92,5 @@ void addFrameGif(int **map)
 void saveToGif()
 {
 	ge_close_gif(gif);
+
 }

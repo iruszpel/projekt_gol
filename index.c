@@ -87,4 +87,10 @@ int main(int argc, char **argv)
 
     if (gif == 1)
         saveToGif();
+
+    freeMap(map->data, map->r);
+    free(map);
+    free(folder);
+
+    return 0;
 }

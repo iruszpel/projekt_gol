@@ -53,7 +53,7 @@ Map *readMap(char *file)
             fscanf(in, "%d", &map->data[i][j]);
         }
     }
-
+    fclose(in);
     return map;
 }
 
@@ -74,4 +74,7 @@ void saveMap(Map *map, char *path, int iter)
         }
         fprintf(out, "\n");
     }
+    
+    free(new_path);
+    fclose(out);
 }
