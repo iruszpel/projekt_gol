@@ -1,8 +1,9 @@
-#include "game.h"
-#include "map.h"
+#include "gol.h"
+#include "../map.h"
 
 int aliveNeighbours(int **map, int x, int y, int r, int c)
 {
+    //Na brzegach wszystko jest martwe
     int a = 0;
     for (int i = y - 1; i < y + 2; i++)
     {
@@ -17,6 +18,7 @@ int aliveNeighbours(int **map, int x, int y, int r, int c)
     }
     return a;
 }
+
 
 //0 - dead
 //1 - alive
@@ -38,3 +40,5 @@ int **updateMap(int **map, int r, int c)
     freeMap(map, r);
     return newmap;
 }
+
+
