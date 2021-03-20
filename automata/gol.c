@@ -9,7 +9,7 @@ int aliveNeighbours(int **map, int x, int y, int r, int c)
     {
         for (int j = x - 1; j < x + 2; j++)
         {
-            if (i >= 0 && i < r && y >= 0 && y < c && !(i == y && j == x))
+            if (i >= 0 && j>= 0 && i < r && j < c && !(i == y && j == x))
             {
                 if (map[i][j] == 1)
                     a++;

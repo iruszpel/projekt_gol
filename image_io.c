@@ -37,7 +37,7 @@ void saveToBmp(char *path, int **map, int r, int c)
 			}
 		}
 	}
-	char *new_path = malloc(sizeof path + 4);
+	char *new_path = malloc(strlen(path) + 5);
 	strcpy(new_path, path);
 	strcat(new_path, ".bmp");
 	

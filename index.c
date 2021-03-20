@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     int iterations = 0;
     int file_check = 0;
     int gif = 0;
-    int ITS;      // iteration to save
+    int ITS = 0;      // iteration to save
     int type = 1; //default type of automaton
     char path[30];
     char pathGif[30];

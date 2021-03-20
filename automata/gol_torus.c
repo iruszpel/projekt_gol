@@ -16,7 +16,7 @@ int aliveNeighboursTorus(int **map, int x, int y, int r, int c)
         
         for (int j = TMOD((x - 1), c),j2=0; j2 < 3; j=TMOD((j+1), c),j2++)
         {   
-            if (i >= 0 && i < r && y >= 0 && y < c && !(i == y && j == x))
+            if (!(i == y && j == x))
             {
                 if (map[i][j] == 1)
                     a++;

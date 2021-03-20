@@ -59,7 +59,7 @@ Map *readMap(char *file)
 
 void saveMap(Map *map, char *path, int iter)
 {
-    char * new_path = malloc(sizeof path + 4);
+    char * new_path = malloc(strlen(path) + 5);
 	strcpy(new_path, path);
     strcat(new_path, ".txt");
 
