@@ -1,8 +1,8 @@
 #include "gol.h"
 #include "../map.h"
-#define TMOD(a,b) ((((a)%(b))+(b))%(b)) //Torusowe modulo
+#define TMOD(a, b) ((((a) % (b)) + (b)) % (b)) //Torusowe modulo
 
-int aliveNeighboursTorus(int **map, int x, int y, int r, int c)
+int aliveNeighboursTorus(int **map, int x, int y, int r, int c, int nbh)
 {
     /*
     Plansza jest torusem i idąc ciągle w jednym kierunku 
@@ -11,19 +11,22 @@ int aliveNeighboursTorus(int **map, int x, int y, int r, int c)
     int a = 0;
     int i2 = 0;
     int j2 = 0;
-    for (int i = TMOD((y - 1), r); i2 < 3; i=TMOD((i+1), r),i2++)
+    int check;
+    for (int i = TMOD((y - 1), r); i2 < 3; i = TMOD((i + 1), r), i2++)
     {
-        
-        for (int j = TMOD((x - 1), c),j2=0; j2 < 3; j=TMOD((j+1), c),j2++)
-        {   
-            if (!(i == y && j == x))
+
+        for (int j = TMOD((x - 1), c), j2 = 0; j2 < 3; j = TMOD((j + 1), c), j2++)
+        {
+            check = 1;
+            if (nbh == 1) // von Neumann
+                check = (i == y || j == x);
+
+            if (!(i == y && j == x) && check)
             {
                 if (map[i][j] == 1)
                     a++;
             }
-            
         }
-        
     }
     return a;
 }
@@ -31,14 +34,14 @@ int aliveNeighboursTorus(int **map, int x, int y, int r, int c)
 //0 - dead
 //1 - alive
 
-int **updateMapTorus(int **map, int r, int c)
+int **updateMapTorus(int **map, int r, int c, int nbh)
 {
     int **newmap = copyMap(map, r, c);
     for (int i = 0; i < r; i++)
     {
         for (int j = 0; j < c; j++)
         {
-            int alive = aliveNeighboursTorus(map, j, i, r, c);
+            int alive = aliveNeighboursTorus(map, j, i, r, c, nbh);
             if (map[i][j] == 1 && !(alive == 2 || alive == 3))
                 newmap[i][j] = 0;
             else if (map[i][j] == 0 && alive == 3)

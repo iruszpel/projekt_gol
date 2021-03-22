@@ -22,7 +22,9 @@ void syntax(char *f)
 void list_automata()
 {
     printf("1. Conway's Game of Life (Moore neighborhood, 2d map) \n");
-    printf("2. Conway's Game of Life (Moore neighborhood, torus map) \n");
+    printf("2. Conway's Game of Life (Von Neumann neighborhood, 2d map) \n");
+    printf("3. Conway's Game of Life (Moore neighborhood, torus map) \n");
+    printf("4. Conway's Game of Life (Von Neumann neighborhood, torus map) \n");
 }
 
 int **updateMapFunction(int type, int **map, int r, int c)
@@ -30,9 +32,14 @@ int **updateMapFunction(int type, int **map, int r, int c)
     switch (type)
     {
     case 1:
-        return updateMap(map,r,c);
+        return updateMap(map, r, c, 0);
     case 2:
-        return updateMapTorus(map,r,c);
+        return updateMap(map, r, c, 0);
+    case 3:
+        return updateMapTorus(map, r, c, 1);
+    case 4:
+        return updateMapTorus(map, r, c, 1);
+        
     }
 }
 
@@ -41,13 +48,13 @@ int main(int argc, char **argv)
     int iterations = 0;
     int file_check = 0;
     int gif = 0;
-    int ITS = 0;      // iteration to save
+    int ITS = 0;  // iteration to save
     int type = 1; //default type of automaton
     char path[30];
     char pathGif[30];
     Map *map;
     char *folder;
-
+    int neighborhood = 0; // 0 - Moore, 1 - von Neumann
     int opt;
     while ((opt = getopt(argc, argv, "f:i:s:t:lg")) != -1)
     {
@@ -64,11 +71,9 @@ int main(int argc, char **argv)
         case 'i': // how many iterations
             iterations = atoi(optarg);
             break;
-
         case 's': // which iteration to save
             ITS = atoi(optarg);
             break;
-
         case 'g': // creates GIF file
             gif = 1;
             break;
