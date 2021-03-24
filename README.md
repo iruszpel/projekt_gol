@@ -5,10 +5,15 @@
 Symulator Gry w życie implementujący sąsiedztwa Moore'a i von Neumanna.
 
 Funkcjonalność:
+
 • Symulacja na mapach prostokątnych jak i torusowych
+
 • Zapis plików graficznych do formatu .bmp
+
 • Zapis animacji z symulacją do formatu .gif
+
 • Zapis wybranej iteracji automatu do pliku tekstowego
+
 • Wybór sąsiedztwa - Moore'a lub von Neumanna
 
 ![gif](readme/anim.gif)
