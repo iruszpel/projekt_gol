@@ -56,7 +56,7 @@ make
 
 ```
 
-Pliki wejściowe i wyjściowe opisujące są w następującym formacie:
+Pliki wejściowe i wyjściowe opisujące plansze są w następującym formacie:
 
 • Pierwsza linia - liczba wierszy i kolumn
 
